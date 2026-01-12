@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
@@ -154,6 +155,11 @@ public class Field extends JPanel implements KeyListener {
                 public void run() {
                     snake.move();
                     repaint();
+                    // Inside your game loop or paintComponent method, after repaint()
+                    if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+                        Toolkit.getDefaultToolkit().sync();
+                    }
+
                     if (gotFruit()) {
                         snake.grow();
                         fruitsEaten+=1;
